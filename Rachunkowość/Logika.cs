@@ -197,5 +197,83 @@ namespace Rachunkowość
                 Console.Write("-");
             Console.WriteLine();
         }
+        public void rozdzielLong()
+        {
+            for (int i = 0; i <= 80; i++)
+                Console.Write("-");
+            Console.WriteLine();
+        }
+
+        public void generujZestawienie()
+        {
+            Console.Write("\nLP.");
+            Console.SetCursorPosition(4, Console.CursorTop);
+            Console.Write("|Nazwa konta");
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.Write("|Obroty");
+            Console.SetCursorPosition(60, Console.CursorTop);
+            Console.Write("|Salda");
+            Console.SetCursorPosition(80, Console.CursorTop);
+            Console.WriteLine("|");
+            Console.SetCursorPosition(4, Console.CursorTop);
+            Console.Write("|");
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.Write("|Dt");
+            Console.SetCursorPosition(50, Console.CursorTop);
+            Console.Write("|Ct");
+            Console.SetCursorPosition(60, Console.CursorTop);
+            Console.Write("|Dt");
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.Write("|Ct");
+            Console.SetCursorPosition(80, Console.CursorTop);
+            Console.WriteLine("|");
+            rozdzielLong();
+            double oDt = 0;
+            double oCt = 0;
+            double sDt = 0;
+            double sCt = 0;
+            for (int i = 0; i < konta.Count; i++)
+            {
+                Console.Write(i);
+                Console.SetCursorPosition(4, Console.CursorTop);
+                Console.Write("|" + konta[i].nazwa);
+                Console.SetCursorPosition(40, Console.CursorTop);
+                Console.Write("|");
+                if (konta[i].getDtSum() != 0)
+                    Console.Write(konta[i].getDtSum());
+                Console.SetCursorPosition(50, Console.CursorTop);
+                Console.Write("|");
+                if (konta[i].getCtSum() != 0)
+                    Console.Write(konta[i].getCtSum());
+                Console.SetCursorPosition(60, Console.CursorTop);
+                Console.Write("|");
+                if (konta[i].getFinalBalance() > 0)
+                    Console.Write(konta[i].getFinalBalance());
+                Console.SetCursorPosition(70, Console.CursorTop);
+                Console.Write("|");
+                if (konta[i].getFinalBalance() < 0)
+                    Console.Write(konta[i].getFinalBalance()*-1);
+                Console.SetCursorPosition(80, Console.CursorTop);
+                Console.WriteLine("|");
+                rozdzielLong();
+                oDt += konta[i].getDtSum();
+                oCt += konta[i].getCtSum();
+                if (konta[i].getFinalBalance() > 0)
+                    sDt += konta[i].getFinalBalance();
+                else
+                    sCt += konta[i].getFinalBalance()*-1;
+            }
+            Console.Write("Razem");
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.Write("|" + oDt);
+            Console.SetCursorPosition(50, Console.CursorTop);
+            Console.Write("|" + oCt);
+            Console.SetCursorPosition(60, Console.CursorTop);
+            Console.Write("|" + sDt);
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.Write("|" + sCt);
+            Console.SetCursorPosition(80, Console.CursorTop);
+            Console.WriteLine("|");
+        }
     }
 }

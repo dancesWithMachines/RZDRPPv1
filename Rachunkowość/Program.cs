@@ -18,7 +18,7 @@ namespace Rachunkowość
             for (; ; )
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Co chcesz zrobić? \n 1)Dodać konto \n 2)Dodać saldo \n 3)Zrobić przelew \n 4)Wypisać");
+                Console.WriteLine("Co chcesz zrobić? \n 1)Dodać konto \n 2)Dodać saldo \n 3)Zrobić transfer \n 4)Wypisać konta \n 5)Generuj zestawienie obrotów i sald\n 6)Wypisz przykłady kont aktywnych \n 7)Wypisz przykłady kont pasywnych ");
                 Console.Write("Wybór: ");
                 Console.ForegroundColor = ConsoleColor.Red;
                 wattodo = Int32.Parse(Console.ReadLine());
@@ -36,6 +36,15 @@ namespace Rachunkowość
                         break;
                     case 4:
                         logika.wypiszKonta();
+                        break;
+                    case 5:
+                        logika.generujZestawienie();
+                        break;
+                    case 6:
+                        pokazAktywne();
+                        break;
+                    case 7:
+                        pokazPasywne();
                         break;
                     default:
                         Console.WriteLine("Błąd");
@@ -171,6 +180,24 @@ namespace Rachunkowość
             }
         }
 
+        static void pokazAktywne()
+        {
+            for (int j = 0; j < zmienne.kontaAktywne.Length; j++)
+            {
+                int tmp = j + 1;
+                Console.WriteLine(" " + tmp + ")" + zmienne.kontaAktywne[j]);
+            }
+        }
+
+        static void pokazPasywne()
+        {
+            for (int j = 0; j < zmienne.kontaPasywne.Length; j++)
+            {
+                int tmp = j + 1;
+                Console.WriteLine(" " + tmp + ")" + zmienne.kontaPasywne[j]);
+            }
+        }
+
 
         static void przelew()
         {
@@ -213,5 +240,7 @@ namespace Rachunkowość
             numer = "(" + numer + ")";
             logika.dodajSaldo(konto1, kwota, numer);
         }
+
+        
     }
 }

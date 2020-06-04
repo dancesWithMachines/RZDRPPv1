@@ -5,3 +5,10 @@ C:\Users\Timax\source\repos\Rachunkowość\Rachunkowość\obj\Debug\Rachunkowoś
 C:\Users\Timax\source\repos\Rachunkowość\Rachunkowość\obj\Debug\Rachunkowość.csproj.CoreCompileInputs.cache
 C:\Users\Timax\source\repos\Rachunkowość\Rachunkowość\obj\Debug\Rachunkowość.exe
 C:\Users\Timax\source\repos\Rachunkowość\Rachunkowość\obj\Debug\Rachunkowość.pdb
+C:\Users\Timax\Documents\GitHub\Accountancy-tasks-solver\Rachunkowość\bin\Debug\Rachunkowość.exe.config
+C:\Users\Timax\Documents\GitHub\Accountancy-tasks-solver\Rachunkowość\bin\Debug\Rachunkowość.exe
+C:\Users\Timax\Documents\GitHub\Accountancy-tasks-solver\Rachunkowość\bin\Debug\Rachunkowość.pdb
+C:\Users\Timax\Documents\GitHub\Accountancy-tasks-solver\Rachunkowość\obj\Debug\Rachunkowość.csprojAssemblyReference.cache
+C:\Users\Timax\Documents\GitHub\Accountancy-tasks-solver\Rachunkowość\obj\Debug\Rachunkowość.csproj.CoreCompileInputs.cache
+C:\Users\Timax\Documents\GitHub\Accountancy-tasks-solver\Rachunkowość\obj\Debug\Rachunkowość.exe
+C:\Users\Timax\Documents\GitHub\Accountancy-tasks-solver\Rachunkowość\obj\Debug\Rachunkowość.pdb

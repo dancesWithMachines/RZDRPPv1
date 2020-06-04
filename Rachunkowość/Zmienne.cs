@@ -31,7 +31,6 @@ namespace Rachunkowość
             "Zobowiazania z tytułu wynagrodzen",
             "Zobowiazania w obec budzetow",
             "Kapital rezerwowy",
-            "Kredyty bankowe",
             "Kapital podstawowy",
             "Umorzenie srodkow trwalych",//!!!!!!!!!!!!!
             "Rozrachunki z budzetami"   //!!!!!!!!!!!!!!
