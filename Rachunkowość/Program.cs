@@ -18,7 +18,7 @@ namespace Rachunkowość
             for (; ; )
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Co chcesz zrobić? \n 1)Dodać konto \n 2)Dodać saldo \n 3)Zrobić transfer \n 4)Wypisać konta \n 5)Generuj zestawienie obrotów i sald\n 6)Wypisz przykłady kont aktywnych \n 7)Wypisz przykłady kont pasywnych \n 8)Usuń operacje");
+                Console.WriteLine("Co chcesz zrobić? \n 1)Dodać konto \n 2)Dodać saldo \n 3)Zrobić transfer \n 4)Wypisać konta \n 5)Generuj zestawienie obrotów i sald\n 6)Wypisz przykłady kont aktywnych \n 7)Wypisz przykłady kont pasywnych \n 8)Usuń operacje \n 9)Usuń saldo");
                 Console.Write("Wybór: ");
                 Console.ForegroundColor = ConsoleColor.Red;
                 wattodo = Int32.Parse(Console.ReadLine());
@@ -48,6 +48,9 @@ namespace Rachunkowość
                         break;
                     case 8:
                         logika.usunOperacje();
+                        break;
+                    case 9:
+                        logika.usunSaldo();
                         break;
                     default:
                         Console.WriteLine("Błąd");

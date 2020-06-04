@@ -293,10 +293,32 @@ namespace Rachunkowość
                 }
             }
         }
+        public void usunSaldo()
+        {
+            for (int i = 0; i < konta.Count; i++)
+            {
+                int a = i + 1;
+                if (konta[i].typ == "pom")
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(" " + a + ")" + konta[i].nazwa);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Numer konta pierwszego: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            int konto1 = Int32.Parse(Console.ReadLine());
+            konto1--;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Numer operacji: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            string numer = Console.ReadLine();
+            usunSaldo(konta[konto1].nazwa, numer);
 
+
+        }
         public void usunSaldo(string konto, string numer)
         {
-            numer = numer + ")";
+            numer = "(" +numer + ")";
             for (int i=0; i < konta.Count; i++)
             {
                 if (konta[i].nazwa == konto)
@@ -308,6 +330,9 @@ namespace Rachunkowość
                             konta[i].dtNo.RemoveAt(j);
                             konta[i].dt.RemoveAt(j);
                         }
+                    }
+                    for (int j = 0; j < konta[i].ctNo.Count; j++)
+                    {
                         if (konta[i].ctNo[j] == numer)
                         {
                             konta[i].ctNo.RemoveAt(j);
@@ -346,6 +371,10 @@ namespace Rachunkowość
             double oCt = 0;
             double sDt = 0;
             double sCt = 0;
+            double oDts = 0;
+            double oCts = 0;
+            double sDts = 0;
+            double sCts = 0;
             for (int i = 0; i < konta.Count; i++)
             {
                 Console.Write(i+1);
@@ -374,12 +403,30 @@ namespace Rachunkowość
                 Console.SetCursorPosition(80, Console.CursorTop);
                 Console.WriteLine("|");
                 rozdzielLong();
-                oDt += konta[i].getDtSum();
-                oCt += konta[i].getCtSum();
-                if (konta[i].getFinalBalance() > 0)
-                    sDt += konta[i].getFinalBalance();
+                if (konta[i].typ != "pom")
+                {
+                    oDt += konta[i].getDtSum();
+                    oCt += konta[i].getCtSum();
+                }
                 else
-                    sCt += konta[i].getFinalBalance()*-1;
+                {
+                    oDts += konta[i].getDtSum();
+                    oCts += konta[i].getCtSum();
+                }
+                if (konta[i].typ != "pom")
+                {
+                    if (konta[i].getFinalBalance() > 0)
+                        sDt += konta[i].getFinalBalance();
+                    else
+                        sCt += konta[i].getFinalBalance() * -1;
+                }
+                else
+                {
+                    if (konta[i].getFinalBalance() > 0)
+                        sDts += konta[i].getFinalBalance();
+                    else
+                        sCts += konta[i].getFinalBalance() * -1;
+                }
             }
             Console.Write("Razem");
             Console.SetCursorPosition(40, Console.CursorTop);
@@ -390,6 +437,17 @@ namespace Rachunkowość
             Console.Write("|" + sDt);
             Console.SetCursorPosition(70, Console.CursorTop);
             Console.Write("|" + sCt);
+            Console.SetCursorPosition(80, Console.CursorTop);
+            Console.WriteLine("|");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.Write("|" + oDts);
+            Console.SetCursorPosition(50, Console.CursorTop);
+            Console.Write("|" + oCts);
+            Console.SetCursorPosition(60, Console.CursorTop);
+            Console.Write("|" + sDts);
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.Write("|" + sCts);
             Console.SetCursorPosition(80, Console.CursorTop);
             Console.WriteLine("|");
         }
