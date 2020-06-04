@@ -9,7 +9,7 @@ namespace Rachunkowość
     public class Logika
     {
         int szerokosc = 30;
-        List<Konto> konta;
+        public List<Konto> konta;
         Zmienne zmienne;
         public Logika()
         {
@@ -63,7 +63,10 @@ namespace Rachunkowość
                     Console.WriteLine("PASYWNE");
                 }
                 else
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("POMOCNICZE");
+                }
                 Console.ForegroundColor = ConsoleColor.White;
                 for (int i = 0; i <= szerokosc; i++)
                     Console.Write("-");
@@ -146,13 +149,51 @@ namespace Rachunkowość
                     {
                         konto.addDt(numer, saldo);
                     }
-                    else
+                    else if (konto.typ == "pas")
                     {
                         konto.addCt(numer, saldo);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine(" 1)Lewa \n 2)Prawa");
+                        Console.Write("Wybor: ");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        int konto1 = Int32.Parse(Console.ReadLine());
+                        if (konto1 == 1)
+                            konto.addDt(numer, saldo);
+                        else if (konto1 == 2)
+                            konto.addCt(numer, saldo);
+                        else
+                            Console.WriteLine("Błąd");
                     }
                 }
 
             }
+        }
+
+        public void usunOperacje()
+        {
+            for (int i = 0; i < konta.Count; i++)
+            {
+                int a = i + 1;
+                Console.WriteLine(" " + a + ")" + konta[i].nazwa);
+            }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Numer konta pierwszego: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            int konto1 = Int32.Parse(Console.ReadLine());
+            konto1--;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Nnumer konta drugiego: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            int konto2 = Int32.Parse(Console.ReadLine());
+            konto2--;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Numer operacji: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            string numer = Console.ReadLine();
+            usunOperacje(konta[konto1].nazwa, konta[konto2].nazwa, numer);
         }
 
         public void zrobTransfer(string kontoZ, string kontoDo, double kwota, string numer)
@@ -182,8 +223,8 @@ namespace Rachunkowość
                             }
                             else
                             {
-                                konto1.addDt(numer, kwota);
-                                konto2.addCt(numer, kwota);
+                                konto1.addCt(numer, kwota);
+                                konto2.addDt(numer, kwota);
                             }
                         }
                     }
@@ -202,6 +243,79 @@ namespace Rachunkowość
             for (int i = 0; i <= 80; i++)
                 Console.Write("-");
             Console.WriteLine();
+        }
+
+        public void usunOperacje(string konto1, string konto2, string operacja)
+        {
+            operacja = "(" + operacja + ")";
+            for (int i=0; i < konta.Count; i++)
+            {
+                if (konta[i].nazwa == konto1)
+                {
+                    for (int j=0; j < konta.Count; j++)
+                    {
+                        if (konta[j].nazwa == konto2)
+                        {
+                            for (int f=0; f < konta[i].ctNo.Count; f++)
+                            {
+                                if (konta[i].ctNo[f] == operacja)
+                                {
+                                    konta[i].ctNo.RemoveAt(f);
+                                    konta[i].ct.RemoveAt(f);
+                                }
+                            }
+                            for (int f = 0; f < konta[i].dtNo.Count; f++)
+                            {
+                                if (konta[i].dtNo[f] == operacja)
+                                {
+                                    konta[i].dtNo.RemoveAt(f);
+                                    konta[i].dt.RemoveAt(f);
+                                }
+                            }
+                            for (int f = 0; f < konta[j].ctNo.Count; f++)
+                            {
+                                if (konta[j].ctNo[f] == operacja)
+                                {
+                                    konta[j].ctNo.RemoveAt(f);
+                                    konta[j].ct.RemoveAt(f);
+                                }
+                            }
+                            for (int f = 0; f < konta[j].dtNo.Count; f++)
+                            {
+                                if (konta[j].dtNo[f] == operacja)
+                                {
+                                    konta[j].dtNo.RemoveAt(f);
+                                    konta[j].dt.RemoveAt(f);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void usunSaldo(string konto, string numer)
+        {
+            numer = numer + ")";
+            for (int i=0; i < konta.Count; i++)
+            {
+                if (konta[i].nazwa == konto)
+                {
+                    for (int j = 0; j < konta[i].dtNo.Count; j++)
+                    {
+                        if (konta[i].dtNo[j] == numer)
+                        {
+                            konta[i].dtNo.RemoveAt(j);
+                            konta[i].dt.RemoveAt(j);
+                        }
+                        if (konta[i].ctNo[j] == numer)
+                        {
+                            konta[i].ctNo.RemoveAt(j);
+                            konta[i].ct.RemoveAt(j);
+                        }
+                    }
+                }
+            }
         }
 
         public void generujZestawienie()
@@ -234,9 +348,13 @@ namespace Rachunkowość
             double sCt = 0;
             for (int i = 0; i < konta.Count; i++)
             {
-                Console.Write(i);
+                Console.Write(i+1);
                 Console.SetCursorPosition(4, Console.CursorTop);
-                Console.Write("|" + konta[i].nazwa);
+                if (konta[i].typ=="pom")
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("|");
+                Console.Write( konta[i].nazwa);
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.SetCursorPosition(40, Console.CursorTop);
                 Console.Write("|");
                 if (konta[i].getDtSum() != 0)

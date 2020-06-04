@@ -18,7 +18,7 @@ namespace Rachunkowość
             for (; ; )
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Co chcesz zrobić? \n 1)Dodać konto \n 2)Dodać saldo \n 3)Zrobić transfer \n 4)Wypisać konta \n 5)Generuj zestawienie obrotów i sald\n 6)Wypisz przykłady kont aktywnych \n 7)Wypisz przykłady kont pasywnych ");
+                Console.WriteLine("Co chcesz zrobić? \n 1)Dodać konto \n 2)Dodać saldo \n 3)Zrobić transfer \n 4)Wypisać konta \n 5)Generuj zestawienie obrotów i sald\n 6)Wypisz przykłady kont aktywnych \n 7)Wypisz przykłady kont pasywnych \n 8)Usuń operacje");
                 Console.Write("Wybór: ");
                 Console.ForegroundColor = ConsoleColor.Red;
                 wattodo = Int32.Parse(Console.ReadLine());
@@ -46,6 +46,9 @@ namespace Rachunkowość
                     case 7:
                         pokazPasywne();
                         break;
+                    case 8:
+                        logika.usunOperacje();
+                        break;
                     default:
                         Console.WriteLine("Błąd");
                         break;
@@ -57,7 +60,7 @@ namespace Rachunkowość
         static public void dodawanieKonta()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(" 1)Dodaj konto ze schematu \n 2)Dodaj konto ręcznie");
+            Console.WriteLine(" 1)Dodaj konto ze schematu \n 2)Dodaj konto ręcznie \n 3)Dodaj konto pomocnicze");
             Console.Write("Wybór: ");
             Console.ForegroundColor = ConsoleColor.Red;
             int i;
@@ -162,6 +165,19 @@ namespace Rachunkowość
                         Console.WriteLine("Błąd");
                     nazwaKonta = nazwa;
                     break;
+                case 3:
+                    string pomocnicze;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("Podaj nazwe konta: ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    pomocnicze = Console.ReadLine();
+                    logika.dodajKontoRecznie(pomocnicze, "pom");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("Dodano: ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(pomocnicze);
+                    nazwaKonta = pomocnicze;
+                    break;
                 default:
                     Console.WriteLine("Nie wybrano");
                     break;
@@ -201,14 +217,24 @@ namespace Rachunkowość
 
         static void przelew()
         {
+            for (int i = 0; i < logika.konta.Count; i++)
+            {
+                int a = i + 1;
+                if (logika.konta[i].typ == "pom")
+                    Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(" " + a + ")" + logika.konta[i].nazwa);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("Przelew z konta: ");
             Console.ForegroundColor = ConsoleColor.Red;
-            string konto1 = Console.ReadLine();
+            int konto1 = Int32.Parse(Console.ReadLine());
+            konto1--;
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("Na konto: ");
             Console.ForegroundColor = ConsoleColor.Red;
-            string konto2 = Console.ReadLine();
+            int konto2 = Int32.Parse(Console.ReadLine());
+            konto2--;
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("Kwota: ");
             Console.ForegroundColor = ConsoleColor.Red;
@@ -218,16 +244,25 @@ namespace Rachunkowość
             Console.ForegroundColor = ConsoleColor.Red;
             string numer = Console.ReadLine();
             numer = "("+ numer + ")";
-            logika.zrobTransfer(konto1, konto2, kwota, numer);
+            if (logika.konta[konto1].typ != "pom" && logika.konta[konto2].typ != "pom")
+                logika.zrobTransfer(logika.konta[konto1].nazwa, logika.konta[konto2].nazwa, kwota, numer);
+            else
+                Console.WriteLine("Niedozwolona operacja");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
         static void dodajSaldo()
-        {
+        { 
+            for (int i = 0; i < logika.konta.Count; i++)
+            {
+                int a = i + 1;
+                Console.WriteLine(" " + a + ")" + logika.konta[i].nazwa);
+            }
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("Nazwa konta: ");
+            Console.Write("Konto: ");
             Console.ForegroundColor = ConsoleColor.Red;
-            string konto1 = Console.ReadLine();
+            int konto1 = Int32.Parse(Console.ReadLine());
+            konto1--;
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("Kwota: ");
             Console.ForegroundColor = ConsoleColor.Red;
@@ -238,9 +273,10 @@ namespace Rachunkowość
             string numer = Console.ReadLine();
             Console.ForegroundColor = ConsoleColor.White;
             numer = "(" + numer + ")";
-            logika.dodajSaldo(konto1, kwota, numer);
+            logika.dodajSaldo(logika.konta[konto1].nazwa, kwota, numer);
         }
 
+        
         
     }
 }
