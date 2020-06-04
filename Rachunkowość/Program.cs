@@ -63,7 +63,7 @@ namespace Rachunkowość
         static public void dodawanieKonta()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(" 1)Dodaj konto ze schematu \n 2)Dodaj konto ręcznie \n 3)Dodaj konto pomocnicze");
+            Console.WriteLine(" 1)Dodaj konto ze schematu \n 2)Dodaj konto ręcznie \n 3)Dodaj konto pomocnicze \n 4)Dodaj konto wynikowe");
             Console.Write("Wybór: ");
             Console.ForegroundColor = ConsoleColor.Red;
             int i;
@@ -181,6 +181,19 @@ namespace Rachunkowość
                     Console.WriteLine(pomocnicze);
                     nazwaKonta = pomocnicze;
                     break;
+                case 4:
+                    string wynikowe;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("Podaj nazwe konta: ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    wynikowe = Console.ReadLine();
+                    logika.dodajKontoRecznie(wynikowe, "wyn");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("Dodano: ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(wynikowe);
+                    nazwaKonta = wynikowe;
+                    break;
                 default:
                     Console.WriteLine("Nie wybrano");
                     break;
@@ -225,6 +238,8 @@ namespace Rachunkowość
                 int a = i + 1;
                 if (logika.konta[i].typ == "pom")
                     Console.ForegroundColor = ConsoleColor.Red;
+                if (logika.konta[i].typ == "wyn")
+                    Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(" " + a + ")" + logika.konta[i].nazwa);
                 Console.ForegroundColor = ConsoleColor.White;
             }

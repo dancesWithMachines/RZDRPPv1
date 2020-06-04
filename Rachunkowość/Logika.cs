@@ -62,10 +62,15 @@ namespace Rachunkowość
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("PASYWNE");
                 }
-                else
+                else if (konto.typ == "pom")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("POMOCNICZE");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("WYNIKOWE");
                 }
                 Console.ForegroundColor = ConsoleColor.White;
                 for (int i = 0; i <= szerokosc; i++)
@@ -377,55 +382,58 @@ namespace Rachunkowość
             double sCts = 0;
             for (int i = 0; i < konta.Count; i++)
             {
-                Console.Write(i+1);
-                Console.SetCursorPosition(4, Console.CursorTop);
-                if (konta[i].typ=="pom")
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("|");
-                Console.Write( konta[i].nazwa);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.SetCursorPosition(40, Console.CursorTop);
-                Console.Write("|");
-                if (konta[i].getDtSum() != 0)
-                    Console.Write(konta[i].getDtSum());
-                Console.SetCursorPosition(50, Console.CursorTop);
-                Console.Write("|");
-                if (konta[i].getCtSum() != 0)
-                    Console.Write(konta[i].getCtSum());
-                Console.SetCursorPosition(60, Console.CursorTop);
-                Console.Write("|");
-                if (konta[i].getFinalBalance() > 0)
-                    Console.Write(konta[i].getFinalBalance());
-                Console.SetCursorPosition(70, Console.CursorTop);
-                Console.Write("|");
-                if (konta[i].getFinalBalance() < 0)
-                    Console.Write(konta[i].getFinalBalance()*-1);
-                Console.SetCursorPosition(80, Console.CursorTop);
-                Console.WriteLine("|");
-                rozdzielLong();
-                if (konta[i].typ != "pom")
+                if (konta[i].typ != "wyn")
                 {
-                    oDt += konta[i].getDtSum();
-                    oCt += konta[i].getCtSum();
-                }
-                else
-                {
-                    oDts += konta[i].getDtSum();
-                    oCts += konta[i].getCtSum();
-                }
-                if (konta[i].typ != "pom")
-                {
+                    Console.Write(i + 1);
+                    Console.SetCursorPosition(4, Console.CursorTop);
+                    if (konta[i].typ == "pom")
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("|");
+                    Console.Write(konta[i].nazwa);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.SetCursorPosition(40, Console.CursorTop);
+                    Console.Write("|");
+                    if (konta[i].getDtSum() != 0)
+                        Console.Write(konta[i].getDtSum());
+                    Console.SetCursorPosition(50, Console.CursorTop);
+                    Console.Write("|");
+                    if (konta[i].getCtSum() != 0)
+                        Console.Write(konta[i].getCtSum());
+                    Console.SetCursorPosition(60, Console.CursorTop);
+                    Console.Write("|");
                     if (konta[i].getFinalBalance() > 0)
-                        sDt += konta[i].getFinalBalance();
+                        Console.Write(konta[i].getFinalBalance());
+                    Console.SetCursorPosition(70, Console.CursorTop);
+                    Console.Write("|");
+                    if (konta[i].getFinalBalance() < 0)
+                        Console.Write(konta[i].getFinalBalance() * -1);
+                    Console.SetCursorPosition(80, Console.CursorTop);
+                    Console.WriteLine("|");
+                    rozdzielLong();
+                    if (konta[i].typ != "pom")
+                    {
+                        oDt += konta[i].getDtSum();
+                        oCt += konta[i].getCtSum();
+                    }
                     else
-                        sCt += konta[i].getFinalBalance() * -1;
-                }
-                else
-                {
-                    if (konta[i].getFinalBalance() > 0)
-                        sDts += konta[i].getFinalBalance();
+                    {
+                        oDts += konta[i].getDtSum();
+                        oCts += konta[i].getCtSum();
+                    }
+                    if (konta[i].typ != "pom")
+                    {
+                        if (konta[i].getFinalBalance() > 0)
+                            sDt += konta[i].getFinalBalance();
+                        else
+                            sCt += konta[i].getFinalBalance() * -1;
+                    }
                     else
-                        sCts += konta[i].getFinalBalance() * -1;
+                    {
+                        if (konta[i].getFinalBalance() > 0)
+                            sDts += konta[i].getFinalBalance();
+                        else
+                            sCts += konta[i].getFinalBalance() * -1;
+                    }
                 }
             }
             Console.Write("Razem");
